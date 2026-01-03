@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover the advanced AI technology powering ONEWorld Sentri. Learn about our natural language processing, machine learning, and intelligent support capabilities.">
+    <title>AI Model - ONEWorld</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0A1628 0%, #0F172A 50%, #1E293B 100%);
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .animated-gradient {
+            background: linear-gradient(270deg, #0A1628, #1E3A8A, #0891B2, #1E3A8A, #0A1628);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3B82F6 0%, #0891B2 100%);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link {
+            position: relative;
+            color: #E2E8F0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #06B6D4;
+        }
+        
+        .nav-link.active {
+            color: #06B6D4;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #3B82F6, #06B6D4);
+            border-radius: 2px;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3B82F6, #0891B2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: #9CA3AF;
+        }
+        
+        .breadcrumb a {
+            color: #9CA3AF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: #06B6D4;
+        }
+        
+        .diagram-node {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .diagram-node:hover {
+            transform: scale(1.1);
+        }
+        
+        @keyframes flowLine {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        .flow-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: flowLine 3s ease-in-out infinite;
+        }
+        
+        .accordion-item {
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .accordion-content.expanded {
+            max-height: 1000px;
+        }
+        
+        .chat-message {
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body class="animated-gradient">
+    <!-- Navigation -->
+    <nav class="glass-strong fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-globe text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold gradient-text">ONEWorld</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="features.html" class="nav-link">Features</a>
+                    <a href="ai-model.html" class="nav-link active">AI Model</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                    <a href="demo.html" class="nav-link">Demo</a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="pricing.html" class="btn-secondary text-sm py-2 px-6">Sign Up</a>
+                    <a href="demo.html" class="btn-primary text-sm py-2 px-6">Request Demo</a>
+                </div>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-20 left-0 right-0 bottom-0 glass-strong">
+            <div class="flex flex-col items-center justify-center h-full space-y-8">
+                <a href="index.html" class="nav-link text-2xl">Home</a>
+                <a href="features.html" class="nav-link text-2xl">Features</a>
+                <a href="ai-model.html" class="nav-link active text-2xl">AI Model</a>
+                <a href="pricing.html" class="nav-link text-2xl">Pricing</a>
+                <a href="demo.html" class="nav-link text-2xl">Demo</a>
+                <div class="flex flex-col space-y-4 mt-8">
+                    <a href="pricing.html" class="btn-secondary text-center">Sign Up</a>
+                    <a href="demo.html" class="btn-primary text-center">Request Demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="breadcrumb mb-8">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right text-xs"></i>
+                    <span>AI Model</span>
+                </div>
+                
+                <div class="text-center max-w-4xl mx-auto">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                        Powered by Advanced <span class="gradient-text">AI Technology</span>
+                    </h1>
+                    <p class="text-xl text-gray-300">
+                        Understanding the intelligence behind ONEWorld Sentri
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Model Overview -->
+        <section class="py-20 relative reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="glass-strong rounded-2xl p-8 card-hover text-center">
+                        <i class="fas fa-microchip text-5xl text-blue-400 mb-4"></i>
+                        <h3 class="font-bold text-lg mb-2">Model Type</h3>
+                        <p class="text-gray-400 text-sm">Advanced Natural Language Processing</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 card-hover text-center">
+                        <i class="fas fa-database text-5xl text-cyan-400 mb-4"></i>
+                        <h3 class="font-bold text-lg mb-2">Training Data</h3>
+                        <p class="text-gray-400 text-sm">Millions of Roblox support interactions</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 card-hover text-center">
+                        <i class="fas fa-bullseye text-5xl text-green-400 mb-4"></i>
+                        <h3 class="font-bold text-lg mb-2">Response Accuracy</h3>
+                        <p class="text-gray-400 text-sm">95%+ accuracy rate</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 card-hover text-center">
+                        <i class="fas fa-graduation-cap text-5xl text-purple-400 mb-4"></i>
+                        <h3 class="font-bold text-lg mb-2">Learning Method</h3>
+                        <p class="text-gray-400 text-sm">Continuous learning from interactions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Technical -->
+        <section class="py-20 relative reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        How It <span class="gradient-text">Works</span>
+                    </h2>
+                    <p class="text-xl text-gray-300">
+                        The intelligent pipeline powering every response
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-strong rounded-2xl p-8 diagram-node">
+                        <div class="text-3xl font-bold text-blue-400 mb-4">1</div>
+                        <h3 class="text-xl font-bold mb-3">Message Reception</h3>
+                        <p class="text-gray-400">User sends a support request through any integrated platform</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 diagram-node">
+                        <div class="text-3xl font-bold text-cyan-400 mb-4">2</div>
+                        <h3 class="text-xl font-bold mb-3">Context Analysis</h3>
+                        <p class="text-gray-400">AI analyzes conversation history and user context</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 diagram-node">
+                        <div class="text-3xl font-bold text-green-400 mb-4">3</div>
+                        <h3 class="text-xl font-bold mb-3">Intent Recognition</h3>
+                        <p class="text-gray-400">Identifies what the user needs and the best way to help</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 diagram-node">
+                        <div class="text-3xl font-bold text-purple-400 mb-4">4</div>
+                        <h3 class="text-xl font-bold mb-3">Response Generation</h3>
+                        <p class="text-gray-400">Creates intelligent, context-aware response</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 diagram-node">
+                        <div class="text-3xl font-bold text-pink-400 mb-4">5</div>
+                        <h3 class="text-xl font-bold mb-3">Quality Assurance</h3>
+                        <p class="text-gray-400">Validates response accuracy and appropriateness</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 diagram-node">
+                        <div class="text-3xl font-bold text-orange-400 mb-4">6</div>
+                        <h3 class="text-xl font-bold mb-3">Delivery</h3>
+                        <p class="text-gray-400">Sends response back to user instantly</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities Section -->
+        <section class="py-20 relative reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        AI <span class="gradient-text">Capabilities</span>
+                    </h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <i class="fas fa-brain text-3xl text-blue-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Natural Language Understanding</h4>
+                        <p class="text-sm text-gray-400">Comprehends complex queries</p>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <i class="fas fa-history text-3xl text-cyan-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Context Retention</h4>
+                        <p class="text-sm text-gray-400">Remembers conversation history</p>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <i class="fas fa-comments text-3xl text-green-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Multi-Turn Conversations</h4>
+                        <p class="text-sm text-gray-400">Handles back-and-forth dialogue</p>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <i class="fas fa-smile text-3xl text-purple-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Sentiment Detection</h4>
+                        <p class="text-sm text-gray-400">Understands emotional context</p>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <i class="fas fa-language text-3xl text-pink-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Language Translation</h4>
+                        <p class="text-sm text-gray-400">Supports 50+ languages</p>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <i class="fas fa-chart-line text-3xl text-orange-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Learning from Feedback</h4>
+                        <p class="text-sm text-gray-400">Improves with every interaction</p>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <i class="fas fa-book text-3xl text-yellow-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Custom Knowledge Integration</h4>
+                        <p class="text-sm text-gray-400">Learns from your content</p>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <i class="fas fa-shield-alt text-3xl text-red-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Fallback Handling</h4>
+                        <p class="text-sm text-gray-400">Gracefully handles edge cases</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Training Section -->
+        <section class="py-20 relative reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl font-bold mb-6">
+                            Train Your <span class="gradient-text">AI Assistant</span>
+                        </h2>
+                        <p class="text-lg text-gray-300 mb-8">
+                            Customize ONEWorld Sentri to match your game's unique needs. Upload your documentation, FAQs, and knowledge base to create a truly personalized support experience.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-upload text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Upload Knowledge Base</h4>
+                                    <p class="text-sm text-gray-400">Import documentation, FAQs, and support articles</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Review & Approve</h4>
+                                    <p class="text-sm text-gray-400">Test responses and fine-tune the AI</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-rocket text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Continuous Improvement</h4>
+                                    <p class="text-sm text-gray-400">AI learns from every conversation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8">
+                        <pre class="text-sm text-green-400 overflow-x-auto"><code>// Initialize custom training
+const training = await ONEWorld.training({
+  documents: [
+    'faq.md',
+    'documentation.pdf',
+    'support-articles/'
+  ],
+  categories: ['gameplay', 'billing', 'technical'],
+  language: 'en'
+});
+
+// Review suggested responses
+training.reviewResponses((response) => {
+  if (response.confidence > 0.9) {
+    return response.approve();
+  }
+  return response.suggestEdit();
+});
+
+// Deploy trained model
+await training.deploy();</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Demo Widget -->
+        <section class="py-20 relative reveal">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-6">
+                        Try It <span class="gradient-text">Yourself</span>
+                    </h2>
+                    <p class="text-xl text-gray-300">
+                        Experience ONEWorld Sentri in action
+                    </p>
+                </div>
+                
+                <div class="glass-strong rounded-2xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-blue-900/50 to-cyan-900/50 p-4 border-b border-white/10">
+                        <h3 class="font-semibold">ONEWorld Sentri Demo</h3>
+                    </div>
+                    <div id="chatMessages" class="p-6 h-96 overflow-y-auto space-y-4">
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-robot text-white text-sm"></i>
+                            </div>
+                            <div class="glass rounded-2xl rounded-tl-none p-4 max-w-[80%]">
+                                <p class="text-sm">Hello! I'm ONEWorld Sentri. How can I help you today?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-white/10">
+                        <div class="flex gap-3">
+                            <input 
+                                type="text" 
+                                id="chatInput" 
+                                placeholder="Type your question..." 
+                                class="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500 transition"
+                            >
+                            <button id="sendBtn" class="btn-primary py-3">Send</button>
+                        </div>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <button class="sample-question text-xs px-3 py-2 glass rounded-lg hover:bg-white/10 transition">
+                                How do I reset my password?
+                            </button>
+                            <button class="sample-question text-xs px-3 py-2 glass rounded-lg hover:bg-white/10 transition">
+                                What are the server rules?
+                            </button>
+                            <button class="sample-question text-xs px-3 py-2 glass rounded-lg hover:bg-white/10 transition">
+                                I found a bug, what should I do?
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Metrics -->
+        <section class="py-20 relative reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        Performance <span class="gradient-text">Metrics</span>
+                    </h2>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-strong rounded-2xl p-8 text-center">
+                        <div class="text-5xl font-bold gradient-text mb-4">1.8s</div>
+                        <h4 class="text-xl font-semibold mb-2">Average Response Time</h4>
+                        <p class="text-gray-400">Lightning-fast responses</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 text-center">
+                        <div class="text-5xl font-bold gradient-text mb-4">95.3%</div>
+                        <h4 class="text-xl font-semibold mb-2">Accuracy Rate</h4>
+                        <p class="text-gray-400">Highly accurate responses</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 text-center">
+                        <div class="text-5xl font-bold gradient-text mb-4">4.8/5</div>
+                        <h4 class="text-xl font-semibold mb-2">User Satisfaction</h4>
+                        <p class="text-gray-400">Excellent customer ratings</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20 relative reveal">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-6">
+                        Technical <span class="gradient-text">FAQs</span>
+                    </h2>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="glass-strong rounded-xl overflow-hidden accordion-item">
+                        <button class="accordion-header w-full p-6 text-left flex justify-between items-center">
+                            <span class="font-semibold">What AI model does ONEWorld use?</span>
+                            <i class="fas fa-chevron-down transition-transform"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-6 pt-0 text-gray-400">
+                                ONEWorld Sentri uses advanced transformer-based neural networks specifically trained on customer support conversations. Our model is continuously updated with the latest NLP advancements.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-strong rounded-xl overflow-hidden accordion-item">
+                        <button class="accordion-header w-full p-6 text-left flex justify-between items-center">
+                            <span class="font-semibold">How does the AI learn from my content?</span>
+                            <i class="fas fa-chevron-down transition-transform"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-6 pt-0 text-gray-400">
+                                When you upload documentation, the AI processes and indexes it using semantic search. It then uses this knowledge base to provide accurate, context-aware responses specific to your game.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-strong rounded-xl overflow-hidden accordion-item">
+                        <button class="accordion-header w-full p-6 text-left flex justify-between items-center">
+                            <span class="font-semibold">Is my data secure?</span>
+                            <i class="fas fa-chevron-down transition-transform"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-6 pt-0 text-gray-400">
+                                Yes! All data is encrypted in transit and at rest. We follow industry-standard security practices and are GDPR compliant. Your training data and conversation logs are private to your organization.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 relative reveal">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="glass-strong rounded-3xl p-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        Experience the AI <span class="gradient-text">Difference</span>
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-10">
+                        Ready to revolutionize your customer support?
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <a href="demo.html" class="btn-primary text-lg">Request Demo</a>
+                        <a href="pricing.html" class="btn-secondary text-lg">View Pricing</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-strong border-t border-white/10 py-16 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+                <div class="lg:col-span-2">
+                    <a href="index.html" class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-globe text-white text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold gradient-text">ONEWorld</span>
+                    </a>
+                    <p class="text-gray-400 mb-6">
+                        Transform your Roblox customer support with AI-powered intelligent assistance.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 transition">
+                            <i class="fab fa-discord text-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 transition">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 transition">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 transition">
+                            <i class="fab fa-youtube text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Product</h3>
+                    <ul class="space-y-3">
+                        <li><a href="features.html" class="text-gray-400 hover:text-cyan-400 transition">Features</a></li>
+                        <li><a href="ai-model.html" class="text-gray-400 hover:text-cyan-400 transition">AI Model</a></li>
+                        <li><a href="pricing.html" class="text-gray-400 hover:text-cyan-400 transition">Pricing</a></li>
+                        <li><a href="demo.html" class="text-gray-400 hover:text-cyan-400 transition">Demo</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">About</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Resources</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">API</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Support</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="glass rounded-2xl p-8 mb-12">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div>
+                        <h3 class="font-semibold text-xl mb-2">Subscribe to our newsletter</h3>
+                        <p class="text-gray-400">Get the latest updates and insights delivered to your inbox.</p>
+                    </div>
+                    <div class="flex w-full md:w-auto gap-3">
+                        <input type="email" placeholder="Enter your email" class="flex-1 md:w-64 px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500 transition">
+                        <button class="btn-primary whitespace-nowrap">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-400 text-sm">© 2025 ONEWorld. All rights reserved.</p>
+                <div class="flex gap-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up text-white"></i>
+    </div>
+
+    <script>
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
+        
+        // Scroll to Top
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 100;
+                
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+        
+        // Chat Demo
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        
+        const aiResponses = {
+            'password': 'To reset your password, go to the game settings and click "Reset Password". You\'ll receive an email with instructions.',
+            'rules': 'Our server rules include: be respectful, no spamming, no exploiting, and follow staff instructions. Full rules are available in #rules channel.',
+            'bug': 'Thank you for reporting! Please submit bug details through our Discord #bug-reports channel or email support@oneworld.com with screenshots and steps to reproduce.',
+            'default': 'I understand your question. Our support team can help you with that. Would you like me to create a support ticket or connect you with a human agent?'
+        };
+        
+        const sendMessage = () => {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'flex gap-3 justify-end chat-message';
+            userMsg.innerHTML = `
+                <div class="glass rounded-2xl rounded-tr-none p-4 max-w-[80%]">
+                    <p class="text-sm">${message}</p>
+                </div>
+                <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-user text-white text-sm"></i>
+                </div>
+            `;
+            chatMessages.appendChild(userMsg);
+            chatInput.value = '';
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Simulate AI response
+            setTimeout(() => {
+                let response = aiResponses.default;
+                const lowerMessage = message.toLowerCase();
+                
+                if (lowerMessage.includes('password') || lowerMessage.includes('reset')) {
+                    response = aiResponses.password;
+                } else if (lowerMessage.includes('rules') || lowerMessage.includes('server')) {
+                    response = aiResponses.rules;
+                } else if (lowerMessage.includes('bug') || lowerMessage.includes('error')) {
+                    response = aiResponses.bug;
+                }
+                
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'flex gap-3 chat-message';
+                aiMsg.innerHTML = `
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-white text-sm"></i>
+                    </div>
+                    <div class="glass rounded-2xl rounded-tl-none p-4 max-w-[80%]">
+                        <p class="text-sm">${response}</p>
+                    </div>
+                `;
+                chatMessages.appendChild(aiMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        };
+        
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+        
+        // Sample questions
+        document.querySelectorAll('.sample-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                chatInput.value = btn.textContent;
+                sendMessage();
+            });
+        });
+        
+        // Accordion
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('i');
+                const isExpanded = content.classList.contains('expanded');
+                
+                // Close all accordions
+                document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('expanded'));
+                document.querySelectorAll('.accordion-header i').forEach(i => i.style.transform = '');
+                
+                // Open clicked accordion if it was closed
+                if (!isExpanded) {
+                    content.classList.add('expanded');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+        
+        // Page Load Animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
