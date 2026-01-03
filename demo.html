@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Request a personalized demo of ONEWorld. See how AI-powered customer support can transform your Roblox game.">
+    <title>Request Demo - ONEWorld</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0A1628 0%, #0F172A 50%, #1E293B 100%); color: #E2E8F0; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-strong { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        .gradient-text { background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .animated-gradient { background: linear-gradient(270deg, #0A1628, #1E3A8A, #0891B2, #1E3A8A, #0A1628); background-size: 400% 400%; animation: gradientShift 15s ease infinite; }
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3); }
+        .btn-primary { background: linear-gradient(135deg, #3B82F6 0%, #0891B2 100%); color: white; padding: 14px 32px; border-radius: 12px; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5); }
+        .btn-secondary { background: rgba(255, 255, 255, 0.1); color: white; padding: 14px 32px; border-radius: 12px; font-weight: 600; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
+        .nav-link { position: relative; color: #E2E8F0; text-decoration: none; transition: color 0.3s ease; }
+        .nav-link:hover { color: #06B6D4; }
+        .nav-link.active { color: #06B6D4; }
+        .nav-link.active::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, #3B82F6, #06B6D4); border-radius: 2px; }
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+        .mobile-menu.active { transform: translateX(0); }
+        .scroll-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #3B82F6, #0891B2); border-radius: 50%; display: flex; align-items: center; justify-center; cursor: pointer; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 1000; }
+        .scroll-top.visible { opacity: 1; pointer-events: all; }
+        .scroll-top:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5); }
+        .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: #9CA3AF; }
+        .breadcrumb a { color: #9CA3AF; text-decoration: none; transition: color 0.3s ease; }
+        .breadcrumb a:hover { color: #06B6D4; }
+        .form-input { width: 100%; padding: 12px 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #E2E8F0; font-size: 16px; transition: all 0.3s ease; }
+        .form-input:focus { outline: none; border-color: #06B6D4; background: rgba(255, 255, 255, 0.08); }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 500; color: #E2E8F0; }
+        textarea.form-input { resize: vertical; min-height: 120px; }
+        .alert { padding: 16px; border-radius: 8px; margin-bottom: 20px; display: none; }
+        .alert.success { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10B981; }
+        .alert.error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #EF4444; }
+        .alert.show { display: block; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner { border: 2px solid rgba(255, 255, 255, 0.1); border-top: 2px solid #06B6D4; border-radius: 50%; width: 20px; height: 20px; animation: spin 0.8s linear infinite; display: inline-block; }
+    </style>
+</head>
+<body class="animated-gradient">
+    <nav class="glass-strong fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-globe text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold gradient-text">ONEWorld</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="features.html" class="nav-link">Features</a>
+                    <a href="ai-model.html" class="nav-link">AI Model</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                    <a href="demo.html" class="nav-link active">Demo</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="pricing.html" class="btn-secondary text-sm py-2 px-6">Sign Up</a>
+                    <a href="demo.html" class="btn-primary text-sm py-2 px-6">Request Demo</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-20 left-0 right-0 bottom-0 glass-strong">
+            <div class="flex flex-col items-center justify-center h-full space-y-8">
+                <a href="index.html" class="nav-link text-2xl">Home</a>
+                <a href="features.html" class="nav-link text-2xl">Features</a>
+                <a href="ai-model.html" class="nav-link text-2xl">AI Model</a>
+                <a href="pricing.html" class="nav-link text-2xl">Pricing</a>
+                <a href="demo.html" class="nav-link active text-2xl">Demo</a>
+                <div class="flex flex-col space-y-4 mt-8">
+                    <a href="pricing.html" class="btn-secondary text-center">Sign Up</a>
+                    <a href="demo.html" class="btn-primary text-center">Request Demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-20">
+        <section class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="breadcrumb mb-8">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right text-xs"></i>
+                    <span>Request Demo</span>
+                </div>
+                <div class="text-center max-w-4xl mx-auto">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                        See ONEWorld in <span class="gradient-text">Action</span>
+                    </h1>
+                    <p class="text-xl text-gray-300">Schedule a personalized demo with our team</p>
+                </div>
+            </div>
+        </section>
+        <section class="py-12 relative reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div>
+                        <div class="glass-strong rounded-3xl p-8">
+                            <h2 class="text-3xl font-bold mb-6">Request Your Demo</h2>
+                            <div id="alertContainer"></div>
+                            <form id="demoForm" class="space-y-6">
+                                <div>
+                                    <label class="form-label">Full Name <span class="text-red-400">*</span></label>
+                                    <input type="text" id="fullName" class="form-input" placeholder="John Doe" required>
+                                </div>
+                                <div>
+                                    <label class="form-label">Email Address <span class="text-red-400">*</span></label>
+                                    <input type="email" id="email" class="form-input" placeholder="john@example.com" required>
+                                </div>
+                                <div>
+                                    <label class="form-label">Company/Game Name</label>
+                                    <input type="text" id="company" class="form-input" placeholder="Your Game Studio">
+                                </div>
+                                <div>
+                                    <label class="form-label">Roblox Game/Group Link</label>
+                                    <input type="url" id="robloxLink" class="form-input" placeholder="https://www.roblox.com/games/...">
+                                </div>
+                                <div>
+                                    <label class="form-label">Current Monthly Support Volume</label>
+                                    <select id="volume" class="form-input">
+                                        <option value="">Select volume</option>
+                                        <option value="<100">Less than 100</option>
+                                        <option value="100-500">100 - 500</option>
+                                        <option value="500-1000">500 - 1,000</option>
+                                        <option value="1000-5000">1,000 - 5,000</option>
+                                        <option value="5000+">5,000+</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="form-label">Preferred Demo Date</label>
+                                    <input type="date" id="demoDate" class="form-input">
+                                </div>
+                                <div>
+                                    <label class="form-label">Preferred Time</label>
+                                    <input type="time" id="demoTime" class="form-input">
+                                </div>
+                                <div>
+                                    <label class="form-label">Message/Questions</label>
+                                    <textarea id="message" class="form-input" placeholder="Tell us about your support needs..."></textarea>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <input type="checkbox" id="privacyAgree" class="mt-1" required>
+                                    <label for="privacyAgree" class="text-sm text-gray-400">
+                                        I agree to the <a href="#" class="text-cyan-400 hover:underline">Privacy Policy</a> and <a href="#" class="text-cyan-400 hover:underline">Terms of Service</a>
+                                    </label>
+                                </div>
+                                <button type="submit" id="submitBtn" class="btn-primary w-full text-lg">
+                                    <span id="btnText">Submit Request</span>
+                                    <span id="btnSpinner" class="spinner hidden"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="space-y-8">
+                        <div class="glass-strong rounded-3xl p-8">
+                            <h3 class="text-2xl font-bold mb-6">What to Expect</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-clock text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">30-Minute Personalized Walkthrough</h4>
+                                        <p class="text-sm text-gray-400">Deep dive into ONEWorld's features tailored to your needs</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Live AI Demonstration</h4>
+                                        <p class="text-sm text-gray-400">See the AI in action with real-world scenarios</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-comments text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Custom Use Case Discussion</h4>
+                                        <p class="text-sm text-gray-400">We'll explore how ONEWorld fits your specific needs</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-question-circle text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Q&A with Our Team</h4>
+                                        <p class="text-sm text-gray-400">Get all your questions answered by experts</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-dollar-sign text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Pricing Consultation</h4>
+                                        <p class="text-sm text-gray-400">Find the plan that works best for your budget</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-rocket text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Implementation Guidance</h4>
+                                        <p class="text-sm text-gray-400">Learn how to get started quickly and easily</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="glass-strong rounded-2xl p-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-300 italic mb-3">
+                                        "The demo was incredibly helpful. The team walked me through everything and showed exactly how ONEWorld could transform our support. Highly recommend!"
+                                    </p>
+                                    <div class="font-semibold">Sarah Chen</div>
+                                    <div class="text-sm text-gray-400">Community Manager, RoPlay</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass rounded-2xl p-6 text-center">
+                            <i class="fas fa-shield-alt text-4xl text-green-400 mb-3"></i>
+                            <h4 class="font-semibold mb-2">Your Data is Secure</h4>
+                            <p class="text-sm text-gray-400">We take privacy seriously. Your information is encrypted and never shared.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-20 relative reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-6">Prefer to Explore on <span class="gradient-text">Your Own</span>?</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-strong rounded-2xl p-8 text-center card-hover">
+                        <i class="fas fa-video text-5xl text-blue-400 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">Watch Video Demo</h3>
+                        <p class="text-gray-400 mb-6">See ONEWorld in action with our 5-minute product tour</p>
+                        <button class="btn-secondary w-full">Watch Now</button>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 text-center card-hover">
+                        <i class="fas fa-book text-5xl text-cyan-400 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">Read Documentation</h3>
+                        <p class="text-gray-400 mb-6">Explore our comprehensive guides and tutorials</p>
+                        <button class="btn-secondary w-full">Browse Docs</button>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 text-center card-hover">
+                        <i class="fab fa-discord text-5xl text-purple-400 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">Join Discord</h3>
+                        <p class="text-gray-400 mb-6">Connect with our community and ask questions</p>
+                        <button class="btn-secondary w-full">Join Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-20 relative reveal">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-strong rounded-3xl p-12 text-center">
+                    <h2 class="text-3xl font-bold mb-6">Alternative Contact Methods</h2>
+                    <div class="grid md:grid-cols-3 gap-8 mb-8">
+                        <div>
+                            <i class="fas fa-envelope text-3xl text-cyan-400 mb-3"></i>
+                            <h4 class="font-semibold mb-2">Email</h4>
+                            <a href="mailto:demo@oneworld.com" class="text-cyan-400 hover:underline">demo@oneworld.com</a>
+                        </div>
+                        <div>
+                            <i class="fab fa-discord text-3xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold mb-2">Discord</h4>
+                            <a href="#" class="text-cyan-400 hover:underline">Join our server</a>
+                        </div>
+                        <div>
+                            <i class="fas fa-clock text-3xl text-blue-400 mb-3"></i>
+                            <h4 class="font-semibold mb-2">Response Time</h4>
+                            <p class="text-gray-400">Within 24 hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="glass-strong border-t border-white/10 py-16 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+                <div class="lg:col-span-2">
+                    <a href="index.html" class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-globe text-white text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold gradient-text">ONEWorld</span>
+                    </a>
+                    <p class="text-gray-400 mb-6">Transform your Roblox customer support with AI-powered intelligent assistance.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 transition"><i class="fab fa-discord text-lg"></i></a>
+                        <a href="#" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 transition"><i class="fab fa-twitter text-lg"></i></a>
+                        <a href="#" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 transition"><i class="fab fa-github text-lg"></i></a>
+                        <a href="#" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 transition"><i class="fab fa-youtube text-lg"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Product</h3>
+                    <ul class="space-y-3">
+                        <li><a href="features.html" class="text-gray-400 hover:text-cyan-400 transition">Features</a></li>
+                        <li><a href="ai-model.html" class="text-gray-400 hover:text-cyan-400 transition">AI Model</a></li>
+                        <li><a href="pricing.html" class="text-gray-400 hover:text-cyan-400 transition">Pricing</a></li>
+                        <li><a href="demo.html" class="text-gray-400 hover:text-cyan-400 transition">Demo</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">About</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Resources</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">API</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Support</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="glass rounded-2xl p-8 mb-12">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div>
+                        <h3 class="font-semibold text-xl mb-2">Subscribe to our newsletter</h3>
+                        <p class="text-gray-400">Get the latest updates and insights delivered to your inbox.</p>
+                    </div>
+                    <div class="flex w-full md:w-auto gap-3">
+                        <input type="email" placeholder="Enter your email" class="flex-1 md:w-64 px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500 transition">
+                        <button class="btn-primary whitespace-nowrap">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-400 text-sm">© 2025 ONEWorld. All rights reserved.</p>
+                <div class="flex gap-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up text-white"></i></div>
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 100;
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+        // Form handling
+        const demoForm = document.getElementById('demoForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const alertContainer = document.getElementById('alertContainer');
+        
+        function showAlert(message, type) {
+            alertContainer.innerHTML = `<div class="alert ${type} show">${message}</div>`;
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+        
+        demoForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Validate required fields
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const privacyAgree = document.getElementById('privacyAgree').checked;
+            
+            if (!fullName || !email || !privacyAgree) {
+                showAlert('Please fill in all required fields and agree to the privacy policy.', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.textContent = 'Submitting...';
+            btnSpinner.classList.remove('hidden');
+            
+            // Simulate API call
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                btnText.textContent = 'Submit Request';
+                btnSpinner.classList.add('hidden');
+                showAlert('Thank you! Your demo request has been submitted. We\'ll contact you within 24 hours.', 'success');
+                demoForm.reset();
+            }, 2000);
+        });
+        
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
